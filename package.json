@@ -1,0 +1,23 @@
+{
+  "name": "administratio-personarum",
+  "version": "1.0.0",
+  "description": "Personnel Management",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CWOChris/administratio-personarum.git"
+  },
+  "author": "@CWOChris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CWOChris/administratio-personarum/issues"
+  },
+  "homepage": "https://github.com/CWOChris/administratio-personarum#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "mysql2": "^3.9.1"
+  }
+}
