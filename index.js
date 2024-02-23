@@ -1,10 +1,58 @@
 const inquirer = require('inquirer');
-const { pool } = require('../db/db');
-const { queries } = require('../queries/queries');
+const { pool } = require('./db/db.js');
+const { queries } = require('./queries/queries.js');
 
 function mainMenu() {
+    pool.query("SHOW TABLES LIKE 'department'", (err, results) => {
+        if (err) {
+            console.error('Error checking tables exist:', err);
+            return;
+        }
+        if (results.length === 0) {
+            pool.query(queries.createDepartmentTable, (err, results) => {
+                if (err) {
+                    console.error('Error creating department tables:', err);
+                } else {
+                    console.log('Department table created successfully.');
+                }
+            });
+        }
+    });
+
+    pool.query("SHOW TABLES LIKE 'employee'", (err, results) => {
+        if (err) {
+            console.error('Error checking tables exist:', err);
+            return;
+        }
+        if (results.length === 0) {
+            pool.query(queries.createEmployeeTable, (err, results) => {
+                if (err) {
+                    console.error('Error creating employee tables:', err);
+                } else {
+                    console.log('Employee table created successfully.');
+                }
+            });
+        }
+    });
+
+    pool.query("SHOW TABLES LIKE 'roles'", (err, results) => {
+        if (err) {
+            console.error('Error checking tables exist:', err);
+            return;
+        }
+        if (results.length === 0) {
+            pool.query(queries.createRolesTable, (err, results) => {
+                if (err) {
+                    console.error('Error creating roles tables:', err);
+                } else {
+                    console.log('Roles table created successfully.');
+                }
+            });
+        }
+    });
+
     inquirer
-        .createPromptModule({
+        .prompt({
             type: 'list',
             name: 'action',
             message: 'What do you want to do?',
