@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const { pool } = require('./db/db.js');
 const { queries } = require('./queries/queries.js');
+const Employee = require('./models/employee.js');
 
 function mainMenu() {
     pool.query("SHOW TABLES LIKE 'department'", (err, results) => {
@@ -191,9 +192,14 @@ function addEmployee() {
             type: 'input',
             name: 'department_id',
             message: 'What is the department of employee?'
+        },
+        {
+            type: 'input',
+            name: 'manager_id',
+            message: 'Who is the employee manager?'
         }
     ]).then(answer =>{
-        pool.query(queries.createEmployee, [answer.first_name, answer.last_name, answer.department_id], (err, results) => {
+        pool.query(queries.createEmployee, [answer.first_name, answer.last_name, answer.department_id, answer.manager_id], (err, results) => {
             if (err) {
                 console.error('Problem adding employee:', err);
             } else {
