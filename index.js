@@ -191,20 +191,24 @@ function addEmployee() {
         {
             type: 'input',
             name: 'department_id',
-            message: 'What is the department of employee?'
+            message: 'What is department ID of employee?'
         },
         {
             type: 'input',
             name: 'manager_id',
-            message: 'Who is the employee manager?'
+            message: 'What is ID of manager of employee?'
         }
-    ]).then(answer =>{
-        pool.query(queries.createEmployee, [answer.first_name, answer.last_name, answer.department_id, answer.manager_id], (err, results) => {
-            if (err) {
-                console.error('Problem adding employee:', err);
-            } else {
-                console.log('Employee successfully added.');
-            }
+    ]).then(answer => {
+        Employee.create({
+            first_name: answer.first_name,
+            last_name: answer.last_name,
+            department_id: answer.department_id,
+            manager_id: answer.manager_id
+        }).then(employee => {
+            console.log('Employee created successfully', employee);
+            mainMenu();
+        }).catch(error => {
+            console.error('Employed creation failed', error);
             mainMenu();
         });
     });
